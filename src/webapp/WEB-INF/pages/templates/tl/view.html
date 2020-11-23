@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Vie User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+
+<body>
+<div class="container my-9">
+    <h3> View User</h3>
+    <div class="card">
+        <div style="float:right">
+            <form th:action="@{/logout}" method="POST">
+                <i class="fas fa-user-times ml-2"></i>
+                <input type="submit" value="Logout"/>
+            </form>
+        </div>
+            <div class="alert alert-success" th:if="${globalMessage}" th:text="${globalMessage}">The User was added successfully </div>
+            <div class="pull-right">
+                <a th:href="@{/}" href="list.html"> Users </a>
+            </div>
+            <dl>
+                <dt>ID</dt>
+                <dd id="id" th:text="${user.getId()}">1</dd>
+                <dt>Date</dt>
+                <dd id="created" th:text="${#calendars.format(user.created)}">July 11, 2012 2:17:16 PM CDT</dd>
+                <dt>First Name</dt>
+                <dd id="firstName" th:text="${user.getFirstName()}">First Name</dd>
+                <dt>Last Name</dt>
+                <dd id="username" th:text="${user.getLastName()}">Last Name</dd>
+                <dt>Email</dt>
+                <dd id="email" th:text="${user.getEmail()}">Email</dd>
+            </dl>
+            <div class="pull-left">
+                <a href="users" th:href="@{'/user/delete/' + ${user.id}}"> delete </a> | <a href="form.html" th:href="@{'/edit/' + ${user.id}}"> modify </a>
+            </div>
+        </div>
+</body>
+</html>
+
+</div>
+</body>
+
+</html>
