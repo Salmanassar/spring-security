@@ -14,6 +14,10 @@ import javax.validation.Valid;
 @Controller
 class RegistrationController {
 
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+    }
+
     private UserService userService;
 
     @Autowired
@@ -37,7 +41,6 @@ class RegistrationController {
             result.addError(new FieldError("user", "user", e.getMessage()));
             return new ModelAndView("templates/registration", "user", user);
         }
-        return new ModelAndView("redirect:/loginPage");
+        return new ModelAndView("redirect:/login");
     }
-
 }

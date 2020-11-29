@@ -13,6 +13,8 @@ import web.model.User;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -20,9 +22,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private static final String ROLE_USER = "ROLE_USER";
     private static final String ROLE_ADMIN = "ROLE_ADMIN";
-    private UserService userService;
+    @Autowired   private UserService userService;
 
-    @Autowired
+    public UserDetailsServiceImpl() {}
+
+
     public UserService getUserService() {
         return userService;
     }
@@ -33,11 +37,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("No user found with username: " + email);
         }
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                true, true, true, true,
-                getAuthorities(ROLE_ADMIN));
+        Set<GrantedAuthority> roles = new HashSet();
+        roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+        UserDetails userDetails =
+                new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), true, true, true, true, getAuthorities(ROLE_USER));
+        return userDetails;
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(String role) {

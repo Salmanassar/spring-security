@@ -3,13 +3,11 @@ package web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.dao.DaoUser;
+import web.model.Role;
 import web.model.User;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 @Transactional
 @Service
@@ -61,11 +59,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
         return daoUser.getUserById(id).get();
-    }
-
-    private boolean userExist(String email) {
-        User user = daoUser.findUserByEmail(email).get();
-        return Stream.of(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword())
-                .noneMatch(String::isEmpty);
     }
 }

@@ -10,9 +10,10 @@ public class PathController implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login")
-                .setViewName("templates/loginPage");
-
+        registry.addViewController("/login").setViewName("templates/loginPage");
+//        registry.addViewController("/").setViewName("templates/tl/list");
+        registry.addViewController("/user/").setViewName("templates/user/userList");
+        registry.addViewController("/admin/").setViewName("templates/tl/list");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 }

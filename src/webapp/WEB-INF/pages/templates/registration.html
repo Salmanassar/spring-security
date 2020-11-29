@@ -3,11 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Add User</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Please sign in</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
 </head>
 
 <body>
@@ -15,7 +16,7 @@
     <h3> Registration </h3>
     <div class="card">
         <div style="float:right">
-            <form th:action="@{/}" method="POST">
+            <form th:action="@{/logout}" method="POST">
                 <i class="fas fa-user-times ml-2"></i>
                 <input type="submit" value="Back"/>
             </form>
@@ -23,12 +24,11 @@
         <div class="card-body">
             <div class="col-md-10">
                 <form id="userForm" th:action="@{/user/register}" th:object="${user}" action="#" method="post">
-                    <div th:if="${#fields.hasErrors('global')}" th:errors="*{global}" class="alert alert-danger">Incorrect password confirmation</div>
+                    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                        <p th:each="error : ${#fields.errors('*')}" th:text="${error}">Validation error</p>
+                    </div>
                     <input type="hidden" th:field="*{id}"/>
 
-<!--                    <div class="pull-right">-->
-<!--                        <a th:href="@{/}" href="users.html"> Users </a>-->
-<!--                    </div>-->
                     <div class="row">
                         <div class="form-group col-md-7" th:classappend="${#fields.hasErrors('firstName')} ? 'has-error'">
                             <label for="firstName" class="col-form-label">First Name</label>
@@ -64,7 +64,11 @@
                                 <span th:if="${#fields.hasErrors('passwordConfirmation')}" th:errors="*{passwordConfirmation}"
                                       class="form-control"> Password Confirmation </span></p>
                         </div>
-
+                        <div class="arrow-button" th:align="right">
+                            <p><b>Only User role</b></p>
+                            USER: <input type="checkbox" name="isUser"
+                                         th:checked="${isUser}"><br>
+                        </div>
                         <div class="col-md-12">
                             <input type="submit" class="btn btn-primary" value=" Registration "/>
                         </div>

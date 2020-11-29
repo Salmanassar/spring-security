@@ -1,42 +1,32 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
-    <title>Login Page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Please sign in</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
 </head>
 <body>
 <div class="container">
-    <h1>Login page</h1>
-
-    <div th:if="${param.error}" class="alert alert-danger">Invalid username and password.</div>
-    <div th:if="${param.logout}" class="alert alert-danger">You have been logged out.</div>
-
-    <form th:action="@{/doLogin}" method="post" class="form-horizontal">
-        <div class="form-group">
-            <label class="control-label col-xs-2" for="username"> Email: </label>
-
-            <div class="col-xs-10">
-                <input id="username" type="text" name="username"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-xs-2" for="password"> Password: </label>
-
-            <div class="col-xs-10">
-                <input id="password" type="password" name="password"/>
-            </div>
-        </div>
-
-        <div class="form-actions col-xs-offset-1 col-xs-10">
-            <input type="submit" class="btn btn-primary" value="Sign In"/>
-            <a class="btn btn-primary" th:href="@{/signup}">Sign Up</a>
-        </div>
+    <form th:action="@{/doLogin}" class="form-signin" method="post" action="/login">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <div th:if="${param.error}" class="alert alert-danger">Invalid username and password.</div>
+        <div th:if="${param.logout}" class="alert alert-danger">You have been logged out.</div>
+        <p>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+        </p>
+        <p>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        </p>
+        <input name="_csrf" type="hidden" value="9102e40a-62a9-456b-9157-84166b86adf9" />
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <a class="btn btn-lg btn-primary btn-block" th:href="@{/signup}">Sign Up</a>
     </form>
 </div>
-
-</body>
-</html>
+</body></html>
